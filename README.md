@@ -8,3 +8,7 @@ day-6 :-
 5. By the use of flatelist fetch data as a Today'special.
 6. categorise the foodData in the terms of veg and nonveg it also show it.
 7. search feature implemented for foodsearch, applied condition and show relative search result.
+
+day-7 :-
+1. Implemented firebase authentication feature.
+2. sign up and login authentication feature implemented.
