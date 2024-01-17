@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, StatusBar } from 'react-native'
 import { colors, titles, btn1, hr80 } from '../../globals/styles'
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -39,6 +39,7 @@ export const LoginScreens = ({ navigation }) => {
     }
 return (
     <View style={styles.container}>
+        <StatusBar />
         <Text style={styles.head1}>Sign In</Text>
         {customError != '' &&
               <Text style={styles.errormsg}>{customError}</Text>

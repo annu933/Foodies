@@ -32,13 +32,13 @@ export default function OfferSlider(){
       prevButton={<Text style={styles.buttonText}> ‹ </Text>}
       >
         <View style={styles.slide}>
-          <Image source={require('../../assets/OfferSlideImg/img1.png')} style={styles.image}/>
+          <Image source={require('../../assets/OfferSlideImg/img1.png')} style={styles.image} resizeMode="contain" />
         </View>
         <View style={styles.slide}>
-          <Image source={require('../../assets/OfferSlideImg/img2.png')} style={styles.image}/>
+          <Image source={require('../../assets/OfferSlideImg/img2.png')} style={styles.image} resizeMode="contain" />
         </View>
         <View style={styles.slide}>
-          <Image source={require('../../assets/OfferSlideImg/img3.png')} style={styles.image}/>
+          <Image source={require('../../assets/OfferSlideImg/img3.png')} style={styles.image} resizeMode="contain" />
         </View>
       </Swiper>
       </View>

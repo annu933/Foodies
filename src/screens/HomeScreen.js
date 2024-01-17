@@ -9,9 +9,10 @@ import { AntDesign } from '@expo/vector-icons';
 import { colors } from '../globals/styles'
 
 import {firebase} from '../../Firebase/FirebaseConfig';
+import BottomNav from '../Components/BottomNav'
 
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
 const [foodData,setFoodData] = useState([]);
 const [vegData,SetVegData] = useState([]);
 const [nonVegData,setNonVegData] = useState([]);
@@ -35,9 +36,13 @@ useEffect(()=>{
 const [search,setSearch]=useState('');
 console.log(search)
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
         <StatusBar />
-        <HomeHeadNav />
+        <HomeHeadNav navigation={navigation} />
+        <View style={styles.bottomnav}>
+        <BottomNav navigation={navigation} />
+        </View>
+        <ScrollView>
         <View style={styles.searchbox}>
         <Ionicons name="search-sharp" size={24} color="black" style={styles.searchIcon} />
         <TextInput placeholder='Search' style={styles.input}
@@ -66,12 +71,12 @@ console.log(search)
         <OfferSlider/>
         
         {/* <Text>HomeScreen</Text> */}
-       <CardSlider title = {"Today's Special"} data = {foodData} />
-       <CardSlider title = {"NonVeg Love"} data = {nonVegData} />
-       <CardSlider title = {"Veg Hunger"} data = {vegData} />
+       <CardSlider title = {"Today's Special"} data = {foodData} navigation={navigation} />
+       <CardSlider title = {"NonVeg Love"} data = {nonVegData} navigation={navigation} />
+       <CardSlider title = {"Veg Hunger"} data = {vegData} navigation={navigation} />
+       </ScrollView>
 
-
-    </ScrollView>
+    </View>
   )
 }
 
@@ -123,5 +128,12 @@ const styles = StyleSheet.create({
         fontSize:18,
         color:colors.text1
     },
+    bottomnav:{
+        position:'absolute',
+        bottom: 0,
+        width: '100%',
+        backgroundColor:colors.col1,
+        zIndex:2
+    }
  
 })

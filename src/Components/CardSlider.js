@@ -1,9 +1,15 @@
-import { FlatList, StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import { FlatList, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react';
 import { colors, veg, nonveg } from '../globals/styles'
 
-const cardSlider = ({ title, data }) => {
+const cardSlider = ({ title, data,navigation }) => {
   // console.log(title, data)
+
+  const openproductpage = (item) =>{
+    // console.log(item);
+    navigation.navigate('productpage',item)
+  }
+
   return (
     // <ScrollView>
       <View style={styles.container}>
@@ -13,9 +19,12 @@ const cardSlider = ({ title, data }) => {
           showsHorizontalScrollIndicator={false}
           data={data}
           renderItem={({ item }) => (
-            <View style={styles.card}>
+            <TouchableOpacity onPress={()=>{
+              openproductpage(item)
+            }}>
+              <View style={styles.card}>
               <View style={styles.s1}>
-                <Image source={{ uri: item.foodImageUrl }} style={styles.cardimgin} />
+                <Image source={{ uri: item.foodImageUrl }} style={styles.cardimgin} resizeMode="contain" />
               </View>
               <View style={styles.s2}>
                 <Text style={styles.txt1}>{item.foodName}</Text>
@@ -29,6 +38,7 @@ const cardSlider = ({ title, data }) => {
                 <Text style={styles.buybtn}>Buy</Text>
               </View>
             </View>
+            </TouchableOpacity>
           )}
         />
       </View>
@@ -66,7 +76,9 @@ const styles = StyleSheet.create({
   cardimgin:{
     width:'100%',
     height:200,
-    borderRadius:10
+    display:'flex',
+    justifyContent: 'center',
+    borderRadius:10,
   },
   s2:{
     flexDirection:'row',

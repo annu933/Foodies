@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, ScrollView,StatusBar } from 'react-native'
 import { colors, titles, btn1, hr80 } from '../../globals/styles'
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -8,6 +8,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
 import { firebase } from '../../Firebase/firebaseConfig'
+// import { StatusBar } from 'expo-status-bar';
 
 export const SignupScreens = ({ navigation }) => {
   const [emailfocus, setEmailfocus] = useState(false);
@@ -33,14 +34,14 @@ export const SignupScreens = ({ navigation }) => {
   // console.log("customError,successmsg",customError,successmsg)
 
   const hendlsignup = () => {
-    const FormData = {
-      name: name,
-      email: email,
-      password: password,
-      // cpassword: cpassword,
-      phone: parseInt(phone, 10),
-      address: address
-    }
+    // const FormData = {
+    //   name: name,
+    //   email: email,
+    //   password: password,
+    //   phone: parseInt(phone, 10),
+    //   address: address,
+    //   uid:userCredentials?.user.uid
+    // }
     if (password != cpassword) {
       setCustomError("password doesn't match")
       return;
@@ -51,16 +52,26 @@ export const SignupScreens = ({ navigation }) => {
     // }
     try {
       firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(() => {
+        .then((userCredentials) => {
           console.log("user created")
           
-          const userRef = firebase.firestore().collection('userData');
-          userRef.add(FormData).then(() => {
+          if(userCredentials?.user.uid){
+            const userRef = firebase.firestore().collection('userData');
+          userRef.add({
+              name: name,
+              email: email,
+              password: password,
+              phone: parseInt(phone, 10),
+              address: address,
+              uid:userCredentials?.user.uid
+            }
+          ).then(() => {
             console.log("data added to the firestore")
             setSuccessmsg("user created successfully")
           }).catch((error) => {
             console.log("firebase error", error)
           })
+          }
         })
         .catch((error) => {
           console.log("sign up firebase error", error)
@@ -84,6 +95,7 @@ export const SignupScreens = ({ navigation }) => {
     <View>
       
       <ScrollView>
+      <StatusBar />
         {successmsg == null ?
           <View style={styles.container}>
             <Text style={styles.head1}>Sign up</Text>
@@ -261,7 +273,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 60
+    // marginTop: 60
   },
   head1: {
     color: colors.text1,

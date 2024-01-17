@@ -1,11 +1,11 @@
-import { View, Text,StyleSheet } from 'react-native'
+import { View, Text,StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { EvilIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../globals/styles';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function HomeHeadNav() {
+export default function HomeHeadNav({navigation}) {
   return (
     <View style={styles.container}>
         <EvilIcons name="navicon" size={24} color="black" style = {styles.myIcon}/>
@@ -13,7 +13,9 @@ export default function HomeHeadNav() {
             <Text style={styles.mytext}>foodie</Text>
             <Ionicons name="fast-food-outline" size={24} color="black" style = {styles.myIcon} />
         </View>
-        <FontAwesome name="user-circle-o" size={24} color="black" />
+        <TouchableOpacity onPress={() => navigation.navigate('userprofile')}>
+            <FontAwesome name="user-circle-o" size={24} color="black" />    
+        </TouchableOpacity>
     </View>
   )
 }
